@@ -1,0 +1,266 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body, html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('/src/assets/bckgrd2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/* General styles */
+.homepage {
+  max-width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: space-between;
+  /* margin: auto; */
+  box-sizing: border-box;
+  /* background: #FEE6FB; */
+}
+
+.heroImage {
+  width: 47%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+}
+
+.heroImage img { 
+  width: 90%;
+  height: auto;
+  border-radius: 50%;
+}
+
+main {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  margin-right: 40px;
+}
+
+.logoContainer {
+  height: 120px;
+  width: 120px;
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoContainer img {
+  width: 120px;
+  height: auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #7C2974;
+}
+
+.description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.Btn {
+  width: 320px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.loginBtn {
+  width: 150px;
+  height: 50px;
+  border: 2px solid #7C2974;
+  background: none;
+  color: #7C2974;
+  border-radius: 50px;
+}
+
+.loginBtn:hover {
+  background: #dd61d0;
+  color: #350230;
+  border: none;
+}
+
+.signUpBtn {
+  width: 150px;
+  height: 50px;
+  background: #7C2974;
+  color: white;
+  border-radius: 50px;
+  border: none;
+}
+
+.signUpBtn:hover {
+  background: white;
+  color: #7C2974;
+  border: 2px solid #7C2974;
+}
+
+
+
+/* Media queries for responsiveness */
+@media (max-width: 834px) {
+
+  body, html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, white, #FEE6FB);
+}
+
+  .homepage {
+    height: 100vh;
+    width: 100vw;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, white, #FEE6FB);
+  }
+
+  .heroImage {
+    display: none;
+  }
+
+  main {
+    height: 95%;
+    width: 95%;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid #FEE6FB;
+    border-radius: 50px;
+    margin: auto;
+  }
+  
+  .logoContainer {
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .logoContainer img {
+    width: 80px;
+    height: auto;
+  }
+
+  .Btn {
+    width: 200px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .loginBtn {
+    width: 150px;
+    height: 50px;
+    border: 2px solid #099cc9;
+    background: none;
+    color: #099cc9;
+    border-radius: 50px;
+    /* margin-top: 20px; */
+  }
+
+  .loginBtn:hover {
+    background: #099cc9;
+    color: white;
+  }
+
+  .signUpBtn {
+    width: 150px;
+    height: 50px;
+    background: #099cc9;
+    color: white;
+    border-radius: 50px;
+    /* margin-top: 10px; */
+  }
+
+  .signUpBtn:hover {
+    background: white;
+    color: #099cc9;
+    border: 2px solid #099cc9;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: #099cc9;
+  }
+
+  /* .description {
+    font-size: 1rem;
+  } */
+}
+
+/* Style for larger screens */
+@media (min-width: 768px) and (max-width: 1113px) {
+  .description {
+    font-size: 1.25rem; /* Increase font size for larger screens */
+    max-width: 40rem; /* Adjust maximum width for larger screens */
+  }
+
+  .Btn {
+    width: 400px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .loginBtn {
+    width: 350px;
+    height: 70px;
+    border: 2px solid #099cc9;
+    background: none;
+    color: #099cc9;
+    border-radius: 50px;
+    /* margin-top: 20px; */
+  }
+
+  .signUpBtn {
+    width: 350px;
+    height: 70px;
+    background: #099cc9;
+    color: white;
+    border-radius: 50px;
+    /* margin-top: 10px; */
+  }
+}
+
+/* Style for smaller screens */
+@media (max-width: 767px) {
+  .description {
+    font-size: 0.875rem; /* Decrease font size for smaller screens */
+    max-width: 25rem; /* Adjust maximum width for smaller screens */
+  }
+
+}

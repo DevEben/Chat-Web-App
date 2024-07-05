@@ -1,0 +1,40 @@
+# Logs
+chatWebApp-client/logs
+chatWebApp-client/*.log
+chatWebApp-client/npm-debug.log*
+chatWebApp-client/yarn-debug.log*
+chatWebApp-client/yarn-error.log*
+chatWebApp-client/pnpm-debug.log*
+chatWebApp-client/lerna-debug.log*
+
+# Node modules
+chatWebApp-client/node_modules
+chatWebApp-server/node_modules
+
+# Build outputs
+chatWebApp-client/dist
+chatWebApp-client/dist-ssr
+chatWebApp-server/build
+
+# Environment variables
+chatWebApp-client/*.local
+chatWebApp-client/.env.local
+chatWebApp-server/.env
+chatWebApp-server/.env.local
+.env
+
+# Editor directories and files
+chatWebApp-client/.vscode/*
+chatWebApp-client/!.vscode/extensions.json
+chatWebApp-client/.idea
+chatWebApp-client/.DS_Store
+chatWebApp-client/*.suo
+chatWebApp-client/*.ntvs*
+chatWebApp-client/*.njsproj
+chatWebApp-client/*.sln
+chatWebApp-client/*.sw?
+
+# System files
+.DS_Store
+Thumbs.db
+node_modules
