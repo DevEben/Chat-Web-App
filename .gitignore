@@ -38,3 +38,5 @@ chatWebApp-client/*.sw?
 .DS_Store
 Thumbs.db
 node_modules
+Login&SignUp/Login&SignUp.jsx
+Login&SignUp/Login&SignUp.css
