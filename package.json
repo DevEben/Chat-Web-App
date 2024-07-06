@@ -1,17 +1,17 @@
 {
-  "name": "ChatApp-server",
+  "name": "ChatApp",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-"scripts": {
-  "server": "nodemon chatWebApp-server/server.js",
-  "client": "vite --config chatWebApp-client/vite.config1.js",
-  "dev": "concurrently \"npm run server\" \"npm run client\"",
-  "dev-nodemon": "concurrently \"npm run client\" \"nodemon --watch chatWebApp-client chatWebApp-server/server.js\"",
-  "start": "node chatWebApp-server/server.js",
-  "build": "npm install && npm install --prefix chatWebApp-client && npm run build --prefix chatWebApp-client",
-  "rebuild": "npm run build --prefix chatWebApp-client"
-},
+  "description": "Full stack ChatApp with server and client",
+  "main": "chatWebApp-server/server.js",
+  "scripts": {
+    "server": "nodemon chatWebApp-server/server.js",
+    "client": "vite --config chatWebApp-client/vite.config1.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-nodemon": "concurrently \"npm run client\" \"nodemon --watch chatWebApp-client chatWebApp-server/server.js\"",
+    "start": "node chatWebApp-server/server.js",
+    "build": "npm install && npm install --prefix chatWebApp-client && npm run build --prefix chatWebApp-client",
+    "rebuild": "npm run build --prefix chatWebApp-client"
+  },
   "keywords": [],
   "author": "DevEben",
   "license": "ISC",

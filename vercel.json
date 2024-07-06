@@ -1,26 +1,25 @@
 {
-  "name": "Feedback-Form-App",
+  "name": "Chat-Glow-App",
+  "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "chatWebApp-server/server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "chatWebApp-client/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "chatWebApp-client/dist" }
     }
   ],
-  "headers": [
+  "routes": [
     {
-      "source": "(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
+      "src": "/api/(.*)",
+      "dest": "chatWebApp-server/server.js"
+    },
     {
-      "source": "/(.*)",
-      "destination": "/server.js"
+      "src": "/(.*)",
+      "dest": "/chatWebApp-client/dist/index.html"
     }
   ]
 }
