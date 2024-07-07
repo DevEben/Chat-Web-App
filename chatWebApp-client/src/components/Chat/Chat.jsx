@@ -90,7 +90,7 @@ const Chat = () => {
   useEffect(() => {
     if (!parsedToken) return;
 
-    const newSocket = io('http://localhost:4321', {
+    const newSocket = io('https://chatglow.onrender.com/', {
       query: { token: parsedToken }
     });
     setSocket(newSocket);
