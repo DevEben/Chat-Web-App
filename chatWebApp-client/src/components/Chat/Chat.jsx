@@ -465,11 +465,11 @@ const Chat = () => {
                   <div className='time-container'>
                     <small>{new Date(msg.sentTime).toLocaleTimeString()}</small>
                   </div>
-                  {istyping && <div className="typing-indicator">Typing...</div>}
                 </div>
               )
             ))
           )}
+          {istyping && <div className="typing-indicator">Typing...</div>}
         </div>
         {/* Input field and send button */}
         {(selectedUser || selectedGroup) && (
