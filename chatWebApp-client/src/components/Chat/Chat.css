@@ -417,3 +417,45 @@ html {
         display: none;
     }
 }
+
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 5px 0;
+    font-style: italic;
+    color: #888;
+  }
+  
+  .typing-indicator::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background-color: #888;
+    animation: blink 1.2s infinite;
+  }
+  
+  .typing-indicator::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-left: 5px;
+    border-radius: 50%;
+    background-color: #888;
+    animation: blink 1.2s infinite 0.4s;
+  }
+  
+  @keyframes blink {
+    0%, 100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  

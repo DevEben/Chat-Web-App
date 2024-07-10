@@ -10,6 +10,7 @@ import EmojiPicker from 'emoji-picker-react';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
+import typingAnimation from "../TypingEffect/typing.json";
 import './Chat.css';
 
 const Chat = () => {
@@ -24,6 +25,8 @@ const Chat = () => {
   const [newGroupName, setNewGroupName] = useState('');
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [istyping, setIsTyping] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -50,6 +53,7 @@ const Chat = () => {
 
   const [socket, setSocket] = useState(null);
   const messageContainerRef = useRef(null);
+  const typingTimeoutRef = useRef(null); // Add a ref to handle typing timeout
 
   useEffect(() => {
     if (!parsedToken) {
@@ -122,6 +126,15 @@ const Chat = () => {
       ]);
     });
 
+    // Listen for typing events
+    newSocket.on('typing', (data) => {
+      setIsTyping(true);
+    });
+
+    newSocket.on('stopTyping', (data) => {
+      setIsTyping(false);
+    });
+
     // Handle 'error' event from server
     newSocket.on('error', async (error) => {
       toast.error('An error occurred: ' + error.message);
@@ -132,6 +145,8 @@ const Chat = () => {
       newSocket.off('presence');
       newSocket.off('message');
       newSocket.off('newMessage');
+      newSocket.off('typing');
+      newSocket.off('stopTyping');
       newSocket.off('error');
       newSocket.disconnect();
     };
@@ -242,6 +257,22 @@ const Chat = () => {
       toast.error('Failed to fetch stored messages: ' + (error.response?.data?.message || error.message));
     }
   };
+
+  const handleTyping = (e) => {
+    setMessage(e.target.value);
+
+    if (!typing) {
+      setTyping(true);
+      socket.emit('typing', { to: selectedUser ? selectedUser._id : selectedGroup._id });
+    }
+
+    clearTimeout(typingTimeoutRef.current);
+    typingTimeoutRef.current = setTimeout(() => {
+      setTyping(false);
+      socket.emit('stopTyping', { to: selectedUser ? selectedUser._id : selectedGroup._id });
+    }, 3000);
+  };
+
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
@@ -434,6 +465,7 @@ const Chat = () => {
                   <div className='time-container'>
                     <small>{new Date(msg.sentTime).toLocaleTimeString()}</small>
                   </div>
+                  {istyping && <div className="typing-indicator">Typing...</div>}
                 </div>
               )
             ))
@@ -464,6 +496,7 @@ const Chat = () => {
                 onChange={(e) => {
                   setMessage(e.target.value);
                   handleInputHeightChange(e);
+                  {handleTyping}
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
