@@ -496,7 +496,7 @@ const Chat = () => {
                 onChange={(e) => {
                   setMessage(e.target.value);
                   handleInputHeightChange(e);
-                  {handleTyping}
+                  handleTyping(e);
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
