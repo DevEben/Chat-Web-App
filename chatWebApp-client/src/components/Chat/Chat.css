@@ -425,7 +425,6 @@ html {
     padding: 5px;
     margin: 5px 0;
     font-style: italic;
-    color: #888;
   }
   
   .typing-indicator::before {
@@ -435,7 +434,6 @@ html {
     height: 8px;
     margin-right: 5px;
     border-radius: 50%;
-    background-color: #888;
     animation: blink 1.2s infinite;
   }
   
@@ -446,7 +444,6 @@ html {
     height: 8px;
     margin-left: 5px;
     border-radius: 50%;
-    background-color: #888;
     animation: blink 1.2s infinite 0.4s;
   }
   

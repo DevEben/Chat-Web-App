@@ -26,7 +26,7 @@ const Chat = () => {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [typing, setTyping] = useState(false);
-  const [istyping, setIsTyping] = useState(false);
+  const [istyping, setIsTyping] = useState(null);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -126,14 +126,14 @@ const Chat = () => {
       ]);
     });
 
-  // Listen for typing events
-  newSocket.on('typing', (data) => {
-    setIsTyping(true);
-  });
+    // Listen for typing events
+    newSocket.on('typing', (data) => {
+      setIsTyping(data.to);
+    });
 
-  newSocket.on('stopTyping', (data) => {
-    setIsTyping(false);
-  });
+    newSocket.on('stopTyping', (data) => {
+      setIsTyping(null);
+    });
 
     // Handle 'error' event from server
     newSocket.on('error', async (error) => {
@@ -260,20 +260,20 @@ const Chat = () => {
 
   const handleTyping = (e) => {
     setMessage(e.target.value);
-  
+
     if (!typing) {
       console.log('User started typing'); // Add console log here
       setTyping(true);
       socket.emit('typing', { to: selectedUser ? selectedUser._id : selectedGroup._id });
     }
-  
+
     clearTimeout(typingTimeoutRef.current);
     typingTimeoutRef.current = setTimeout(() => {
       console.log('User stopped typing'); // Add console log here
       setTyping(false);
       socket.emit('stopTyping', { to: selectedUser ? selectedUser._id : selectedGroup._id });
-    }, 3000);
-  };  
+    }, 5000);
+  };
 
 
   const handleUserClick = (user) => {
@@ -471,7 +471,12 @@ const Chat = () => {
               )
             ))
           )}
-          {istyping && <div className="typing-indicator">Typing...</div>}
+          {/* {istyping && <div className="typing-indicator"> {`${istyping} is typing...`}</div>} */}
+          {istyping && (
+        <div className={`typing-indicator ${istyping === parsedUser.userId ? 'my-message' : 'user-message'}`}>
+          {`Typing...`}
+        </div>
+      )}
         </div>
         {/* Input field and send button */}
         {(selectedUser || selectedGroup) && (

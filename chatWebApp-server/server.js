@@ -168,13 +168,11 @@ io.on('connection', (socket) => {
     });
 
     socket.on('typing', (data) => {
-        console.log('typing event received on server:', data);
         // Emit the typing event to the specific room or user
         socket.broadcast.to(data.to).emit('typing', data);
     });
 
     socket.on('stopTyping', (data) => {
-        console.log('stopTyping event received on server:', data);
         // Emit the stopTyping event to the specific room or user
         socket.broadcast.to(data.to).emit('stopTyping', data);
     });
