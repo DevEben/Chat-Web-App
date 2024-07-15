@@ -126,14 +126,14 @@ const Chat = () => {
       ]);
     });
 
-    // Listen for typing events
-    newSocket.on('typing', (data) => {
-      setIsTyping(true);
-    });
+  // Listen for typing events
+  newSocket.on('typing', (data) => {
+    setIsTyping(true);
+  });
 
-    newSocket.on('stopTyping', (data) => {
-      setIsTyping(false);
-    });
+  newSocket.on('stopTyping', (data) => {
+    setIsTyping(false);
+  });
 
     // Handle 'error' event from server
     newSocket.on('error', async (error) => {
@@ -260,18 +260,20 @@ const Chat = () => {
 
   const handleTyping = (e) => {
     setMessage(e.target.value);
-
+  
     if (!typing) {
+      console.log('User started typing'); // Add console log here
       setTyping(true);
       socket.emit('typing', { to: selectedUser ? selectedUser._id : selectedGroup._id });
     }
-
+  
     clearTimeout(typingTimeoutRef.current);
     typingTimeoutRef.current = setTimeout(() => {
+      console.log('User stopped typing'); // Add console log here
       setTyping(false);
       socket.emit('stopTyping', { to: selectedUser ? selectedUser._id : selectedGroup._id });
     }, 3000);
-  };
+  };  
 
 
   const handleUserClick = (user) => {

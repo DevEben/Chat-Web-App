@@ -10,6 +10,7 @@ const LoginAndSignUp = () => {
     const [isSignup, setIsSignup] = useState(false);
     const [loadingSignup, setLoadingSignup] = useState(false);
     const [loadingLogin, setLoadingLogin] = useState(false);
+    const [selectedButton, setSelectedButton] = useState('Login');
     const navigate = useNavigate();
 
     const signup = async (event) => {
@@ -112,10 +113,12 @@ const LoginAndSignUp = () => {
 
     const handleSignupClick = () => {
         setIsSignup(true);
+        setSelectedButton('Signup');
     };
 
     const handleLoginClick = () => {
         setIsSignup(false);
+        setSelectedButton('Login');
     };
 
     const validateEmail = (email) => {
@@ -146,7 +149,7 @@ const LoginAndSignUp = () => {
                         <button className="login" onClick={handleLoginClick}>Login</button>
                         <button className="signup" onClick={handleSignupClick}>Signup</button>
                     </div>
-
+                    <h5 style={{textAlign: "center", color: "#021c24", paddingTop: "20px"}}> Welcome to Chat Glow! Please {selectedButton} to continue. </h5>
                     <div className={`form-section ${isSignup ? 'form-section-move' : ''}`}>
                         <div className="login-box">
                             <form onSubmit={login}>
