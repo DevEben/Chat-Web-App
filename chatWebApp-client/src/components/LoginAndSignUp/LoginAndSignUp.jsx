@@ -47,8 +47,6 @@ const LoginAndSignUp = () => {
             payload.append('email', email);
             payload.append('password', password);
             payload.append('avatar', avatar);
-
-            console.log(payload);
     
             const response = await axios.post('/api/signup', payload, {
                 headers: {

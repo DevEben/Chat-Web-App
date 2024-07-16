@@ -74,7 +74,6 @@ const Header2 = () => {
                             <img src={parsedUser.avatar.url} alt="avatar" />
                             <h4 className='username'>{parsedUser.username}</h4>
                         </div>
-                        {console.log(parsedUser.username)}
                         <div
                             onClick={handleLogout}
                             className='logoutBtn'
