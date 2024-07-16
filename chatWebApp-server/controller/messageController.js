@@ -59,7 +59,7 @@ const getMessages = async (req, res) => {
         })
             .populate('from', 'username')
             .populate('to', 'username')
-            .sort({ createdAt: 1 });
+            .sort({ createdAt: -1 });
 
         return res.json({ data: messages });
     } catch (error) {
@@ -268,7 +268,7 @@ const getGroupMessages = async (req, res) => {
             .populate('group', 'name')
             .populate('from', 'username')
             .populate('to', 'name')
-            .sort({ createdAt: 1 });
+            .sort({ createdAt: -1 });
 
         return res.json({ data: messages });
     } catch (error) {

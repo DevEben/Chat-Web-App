@@ -10,7 +10,7 @@ import EmojiPicker from 'emoji-picker-react';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import typingAnimation from "../TypingEffect/typing.json";
+// import typingAnimation from "../TypingEffect/typing.json";
 import './Chat.css';
 
 const Chat = () => {
@@ -54,6 +54,7 @@ const Chat = () => {
   const [socket, setSocket] = useState(null);
   const messageContainerRef = useRef(null);
   const typingTimeoutRef = useRef(null); // Add a ref to handle typing timeout
+  const messagesEndRef = useRef(null); // Ref to handle scrolling to the end
 
   useEffect(() => {
     if (!parsedToken) {
@@ -91,6 +92,39 @@ const Chat = () => {
     fetchGroups();
   }, [parsedToken, navigate]);
 
+
+    // fetchStoredMessages is defined in the component scope to be used
+    const fetchStoredMessages = async () => {
+      try {
+        if (selectedUser) {
+          const response = await axios.get(`/api/getmessage/${selectedUser._id}`, {
+            headers: {
+              'Authorization': `Bearer ${parsedToken}`
+            }
+          });
+  
+          const receivedMessages = response.data.data;
+  
+          setMessages(receivedMessages);
+  
+        } else if (selectedGroup) {
+          const response = await axios.get(`/api/get-group-messages/${selectedGroup._id}`, {
+            headers: {
+              'Authorization': `Bearer ${parsedToken}`
+            }
+          });
+  
+          const receivedMessages = response.data.data;
+  
+          setMessages(receivedMessages);
+  
+          socket.emit('joinGroup', selectedGroup._id);
+        }
+      } catch (error) {
+        toast.error('Failed to fetch stored messages: ' + (error.response?.data?.message || error.message));
+      }
+    };
+
   useEffect(() => {
     if (!parsedToken) return;
 
@@ -113,17 +147,11 @@ const Chat = () => {
     });
 
     newSocket.on('message', (message) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        message
-      ]);
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     newSocket.on('newMessage', (message) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        message
-      ]);
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     // Listen for typing events
@@ -165,6 +193,7 @@ const Chat = () => {
           const receivedMessages = response.data.data;
 
           setMessages(receivedMessages);
+
         } else if (selectedGroup) {
           const response = await axios.get(`/api/get-group-messages/${selectedGroup._id}`, {
             headers: {
@@ -187,10 +216,10 @@ const Chat = () => {
   }, [parsedToken, selectedUser, selectedGroup]);
 
   useEffect(() => {
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
+  }, [messages, istyping]);
 
   const sendMessage = async () => {
     try {
@@ -220,60 +249,49 @@ const Chat = () => {
         }
       ]);
       setMessage('');
-      console.log(fetchStoredMessages())
+      // console.log(fetchStoredMessages())
     } catch (error) {
       await fetchStoredMessages();  // Reload messages here
       toast.error('Failed to send message: ' + (error.response?.data?.message || error.message));
     }
   };
 
-  // fetchStoredMessages is defined in the component scope to be used
-  const fetchStoredMessages = async () => {
-    try {
-      if (selectedUser) {
-        const response = await axios.get(`/api/getmessage/${selectedUser._id}`, {
-          headers: {
-            'Authorization': `Bearer ${parsedToken}`
-          }
-        });
 
-        const receivedMessages = response.data.data;
+  // const handleTyping = (e) => {
+  //   setMessage(e.target.value);
 
-        setMessages(receivedMessages);
-      } else if (selectedGroup) {
-        const response = await axios.get(`/api/get-group-messages/${selectedGroup._id}`, {
-          headers: {
-            'Authorization': `Bearer ${parsedToken}`
-          }
-        });
+  //   if (!typing) {
+  //     console.log('User started typing'); // Add console log here
+  //     setTyping(true);
+  //     socket.emit('typing', { to: selectedUser ? selectedUser._id : selectedGroup._id });
+  //   }
 
-        const receivedMessages = response.data.data;
+  //   clearTimeout(typingTimeoutRef.current);
+  //   typingTimeoutRef.current = setTimeout(() => {
+  //     console.log('User stopped typing'); // Add console log here
+  //     setTyping(false);
+  //     socket.emit('stopTyping', { to: selectedUser ? selectedUser._id : selectedGroup._id });
+  //   }, 3000);
 
-        setMessages(receivedMessages);
-
-        socket.emit('joinGroup', selectedGroup._id);
-      }
-    } catch (error) {
-      toast.error('Failed to fetch stored messages: ' + (error.response?.data?.message || error.message));
-    }
-  };
+  //   if (messageContainerRef.current) {
+  //     messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight; // Ensure scrolling to bottom after update
+  //   }
+  // };
 
   const handleTyping = (e) => {
     setMessage(e.target.value);
-
+  
     if (!typing) {
-      console.log('User started typing'); // Add console log here
       setTyping(true);
       socket.emit('typing', { to: selectedUser ? selectedUser._id : selectedGroup._id });
     }
-
+  
     clearTimeout(typingTimeoutRef.current);
     typingTimeoutRef.current = setTimeout(() => {
-      console.log('User stopped typing'); // Add console log here
       setTyping(false);
       socket.emit('stopTyping', { to: selectedUser ? selectedUser._id : selectedGroup._id });
-    }, 5000);
-  };
+    }, 3000);
+  };  
 
 
   const handleUserClick = (user) => {
@@ -473,10 +491,11 @@ const Chat = () => {
           )}
           {/* {istyping && <div className="typing-indicator"> {`${istyping} is typing...`}</div>} */}
           {istyping && (
-        <div className={`typing-indicator ${istyping === parsedUser.userId ? 'my-message' : 'user-message'}`}>
-          {`Typing...`}
-        </div>
-      )}
+            <div className={`typing-indicator ${istyping === parsedUser.userId ? 'my-message' : 'user-message'}`}>
+              {`Typing...`}
+            </div>
+          )}
+          <div ref={messagesEndRef} />
         </div>
         {/* Input field and send button */}
         {(selectedUser || selectedGroup) && (

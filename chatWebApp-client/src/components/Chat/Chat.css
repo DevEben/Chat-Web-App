@@ -41,6 +41,9 @@ html {
 
 .message-container {
     overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
     -ms-overflow-style: none;
     /* IE and Edge */
     scrollbar-width: none;
@@ -64,7 +67,7 @@ html {
     width: max-content;
     background-color: #099cc9;
     color: white;
-    float: right;
+    align-self: flex-end;
     word-wrap: break-word;
     max-width: 80%;
     border-radius: 15px 0 15px 15px;
@@ -75,7 +78,7 @@ html {
     font-size: 12px;
     width: max-content;
     background-color: #bee7f4;
-    float: left;
+    align-self: flex-start;
     word-wrap: break-word;
     max-width: 80%;
     border-radius: 0 15px 15px 15px;
