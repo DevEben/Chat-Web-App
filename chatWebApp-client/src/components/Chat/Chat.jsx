@@ -238,15 +238,29 @@ const Chat = () => {
         return;
       }
 
-      setMessages(prevMessages => [
-        {
-          from: { _id: parsedUser.userId, username: parsedToken.username },
-          to: selectedUser ? { _id: selectedUser._id, username: selectedUser.username } : { _id: selectedGroup._id, name: selectedGroup.name },
-          message: messageData.message,
-          sentTime: new Date().toISOString()
-        },
-        ...prevMessages
-      ]);
+      // setMessages(prevMessages => [
+      //   {
+      //     from: { _id: parsedUser.userId, username: parsedToken.username },
+      //     to: selectedUser ? { _id: selectedUser._id, username: selectedUser.username } : { _id: selectedGroup._id, name: selectedGroup.name },
+      //     message: messageData.message,
+      //     sentTime: new Date().toISOString()
+      //   },
+      //   ...prevMessages
+      // ]);
+
+
+      if (selectedUser) {
+        setMessages(prevMessages => [
+          {
+            from: { _id: parsedUser.userId, username: parsedToken.username },
+            to: { _id: selectedUser._id, username: selectedUser.username },
+            message: messageData.message,
+            sentTime: new Date().toISOString()
+          },
+          ...prevMessages
+        ]);
+      }
+
       setMessage('');
     } catch (error) {
       await fetchStoredMessages();  // Reload messages here
