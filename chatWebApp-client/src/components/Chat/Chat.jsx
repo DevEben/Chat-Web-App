@@ -149,9 +149,9 @@ const Chat = () => {
       setMessages((prevMessages) => [message, ...prevMessages]);
     });
 
-    // newSocket.on('newMessage', (message) => {
-    //   setMessages((prevMessages) => [message, ...prevMessages]);
-    // });
+    newSocket.on('newMessage', (message) => {
+      setMessages((prevMessages) => [message, ...prevMessages]);
+    });
 
     // Listen for typing events
     newSocket.on('typing', (data) => {
