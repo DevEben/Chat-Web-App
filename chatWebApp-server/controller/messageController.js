@@ -183,6 +183,13 @@ const joinGroup = async (req, res) => {
                 message: "No group Id was gotten!"
             })
         }
+
+        const user = await userModel.findById(req.user.userId);
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found!"
+            });
+        }
         const group = await groupModel.findById(groupId);
         if (!group) {
             return res.status(404).json('Group not found!');
@@ -193,11 +200,11 @@ const joinGroup = async (req, res) => {
             await group.save();
         } else {
             return res.status(400).json({
-                message: "user already joined the group!!"
+                message: `${user.username} already joined the group!!`
             })
         }
         return res.status(200).json({
-            message: "User successfully joined group!", 
+            message:  `${user.username} successfully joined group!`, 
             group
         });
     } catch (error) {
