@@ -60,14 +60,14 @@ const verifiedHTML = (req) => {
         </div>
         <h1>Email Verification Successful!</h1>
         <p>Your email has been successfully verified. You can now proceed to login.</p>
-        <p>Thank you for Rapid Stock Control!.</p>
+        <p>Let's start chatting!.</p>
         <div style="text-align: center;">
-            <a href="http://localhost:3000/login-signup" class="btn">Proceed to Login</a>
+            <a href="https://chatglow.onrender.com/login&signup" class="btn">Proceed to Login</a>
         </div>
     </div>
     <script>
     setTimeout(() => { 
-        window.location.href ="http://localhost:3000/login-signup";
+        window.location.href ="https://chatglow.onrender.com/login&signup";
     }, 5000)
 
     </script>
