@@ -12,7 +12,7 @@ body, html {
 header {
   border: 1px solid lightgray;
   display: flex;
-  height: 10vh;
+  height: 70px;
   width: 100vw;
   justify-content: space-between;
   align-items: center;

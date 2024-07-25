@@ -1,0 +1,106 @@
+/* body, html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} */
+
+.FinalDown {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    background: #172b4d;
+    padding: 10px;
+}
+.Footer {
+    width: 90%;
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+.Logoss {
+    width: 15%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.Logoss img {
+    width: 150px;
+    height: 60px;
+    object-fit: contain;
+}
+.loginLink {
+    margin-top: 10px;
+    color: white;
+    text-decoration: none;
+}
+.Aboutsss {
+    width: 20%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.Aboutsss > p {
+    margin-top: 10px;
+    font-size: 13px;
+}
+.Aboutsss > span {
+    font-size: 17px;
+    font-weight: 400;
+}
+.StraghtLine {
+    width: 98%;
+    height: 0.5px;
+    background: #3f4f6c;
+}
+.Socials {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.SocialsL {
+    width: 40%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.SocialsL img {
+    width: 25px;
+    height: 25px;
+    margin-left: 30px;
+}
+.SocialsL > h5 {
+    font-size: 17px;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.SocialsL > p {
+    font-size: 12px;
+    margin-left: 30px;
+}
+.SocialsR {
+    width: 20%;
+    height: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 50px;
+}
+.SocialsR img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
